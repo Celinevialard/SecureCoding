@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecureCoding", "SecureCoding\SecureCoding.csproj", "{84A29FBF-48D4-45E4-8CB1-97C725B6C86D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecureCoding", "SecureCoding\SecureCoding.csproj", "{84A29FBF-48D4-45E4-8CB1-97C725B6C86D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotSecure", "NotSecure\NotSecure.csproj", "{61B0B3CA-B47B-4715-86AB-71632D38F96E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotSecure", "NotSecure\NotSecure.csproj", "{61B0B3CA-B47B-4715-86AB-71632D38F96E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
