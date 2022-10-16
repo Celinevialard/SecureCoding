@@ -1,4 +1,5 @@
-﻿@model IEnumerable<SecureCoding.Model.TicketsViewModel>
+﻿@using SecureCoding.Model
+@model TicketListViewModel
 
 @{
     ViewData["Title"] = "Tickets";
@@ -6,21 +7,21 @@
 
 <h1>View</h1>
 
-
+@if(Model.Tickets.Any()){
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                @Html.DisplayNameFor(model => model.Tickets[0].Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.Tickets[0].Name)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Tickets) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Id)
@@ -37,3 +38,7 @@
 }
     </tbody>
 </table>
+}
+else{
+    <p>No tickets</p>
+}
