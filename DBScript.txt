@@ -4,9 +4,7 @@ CREATE TABLE [User] (
     [Firstname] NVARCHAR (20) 	NOT NULL,
     [Login] 	NVARCHAR (20) 	NOT NULL,
     [Password] 	NVARCHAR (30) 	NOT NULL,
-    [IdTicket]	INT		NULL,	
     PRIMARY KEY CLUSTERED ([IdUser] ASC),
-    FOREIGN KEY ([IdTicket]) REFERENCES [Ticket] ([IdTicket])
 );
 
 CREATE TABLE [Ticket] (
