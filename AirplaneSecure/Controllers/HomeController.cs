@@ -1,10 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AirplaneSecure.Database;
+using Microsoft.AspNetCore.Mvc;
 using SecureCoding.Model;
 
 namespace SecureCoding.Controler;
 
 public class HomeController : Controller
 {
+    IUserDb UserDb { get; set; }
+
+    public HomeController(IUserDb userDb)
+    {
+        UserDb = userDb;
+    }
     [HttpGet]
     public IActionResult Login()
     {
@@ -15,7 +22,11 @@ public class HomeController : Controller
     [HttpPost]
     public IActionResult Login(AuthViewModel login)
     {
-        // une fois le formulaire submit
-        return View();
+        // une fois le formulaire submit enregistrer dans la session le userID
+        User user = UserDb.GetUser(login.UserName);
+        //  controler mot de passe si ok passer en dessous
+        HttpContext.Session.SetString("User", user.Id.ToString());
+
+        return RedirectToAction("Index", "Tickets");
     }
 }

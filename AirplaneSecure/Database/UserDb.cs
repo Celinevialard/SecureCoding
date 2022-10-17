@@ -20,7 +20,7 @@ public class UserDb : IUserDb
             using (SqlConnection cn = new SqlConnection(connectionString))
             {
                 string query = @"SELECT * FROM User 
-							WHERE login = @login";
+							WHERE Login = @login";
                 SqlCommand cmd = new SqlCommand(query, cn);
                 cmd.Parameters.AddWithValue("@login", login);
                 cn.Open();
@@ -51,7 +51,7 @@ public class UserDb : IUserDb
             using (SqlConnection cn = new SqlConnection(connectionString))
             {
                 string query = @"SELECT * FROM User 
-							WHERE id = @id";
+							WHERE IdUser = @id";
                 SqlCommand cmd = new SqlCommand(query, cn);
                 cmd.Parameters.AddWithValue("@id", id);
                 cn.Open();
@@ -81,14 +81,14 @@ public class UserDb : IUserDb
             using (SqlConnection cn = new SqlConnection(connectionString))
             {
                 string query = @"UPDATE User
-                            SET password = @password,
-                            name = @name,
-                            lastname = @lastname
-							WHERE id = @id";
+                            SET Password = @password,
+                            FirstName = @firstname,
+                            Lastname = @lastname
+							WHERE IdUser = @id";
                 SqlCommand cmd = new SqlCommand(query, cn);
                 cmd.Parameters.AddWithValue("@id", user.Id);
                 cmd.Parameters.AddWithValue("@password", user.Password);
-                cmd.Parameters.AddWithValue("@name", user.Name);
+                cmd.Parameters.AddWithValue("@firstname", user.Firstname);
                 cmd.Parameters.AddWithValue("@lastname", user.Lastname);
                 cn.Open();
 
@@ -105,8 +105,11 @@ public class UserDb : IUserDb
     {
         User user = new User();
 
-        user.Id = (int)dr["id"];
-        user.Name = (string)dr["name"];
+        user.Id = (int)dr["IdUser"];
+        user.Lastname = (string)dr["Lastname"];
+        user.Firstname = (string)dr["Firstname"];
+        user.Login = (string)dr["Login"];
+        user.Password = (string)dr["Password"];
 
         return user;
     }

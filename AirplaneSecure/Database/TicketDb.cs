@@ -19,8 +19,8 @@ public class TicketDb : ITicketDb
         {
             using (SqlConnection cn = new SqlConnection(connectionString))
             {
-                string query = @"SELECT * FROM Tickets 
-							WHERE userId = @userId";
+                string query = @"SELECT * FROM Ticket 
+							WHERE IdUser = @userId";
                 SqlCommand cmd = new SqlCommand(query, cn);
                 cmd.Parameters.AddWithValue("@userId", userId);
                 cn.Open();
@@ -54,8 +54,8 @@ public class TicketDb : ITicketDb
         {
             using (SqlConnection cn = new SqlConnection(connectionString))
             {
-                string query = @"SELECT * FROM Tickets 
-							WHERE id = @id";
+                string query = @"SELECT * FROM Ticket 
+							WHERE IdTicket = @id";
                 SqlCommand cmd = new SqlCommand(query, cn);
                 cmd.Parameters.AddWithValue("@id", id);
                 cn.Open();
@@ -80,8 +80,8 @@ public class TicketDb : ITicketDb
     {
         Ticket ticket = new Ticket();
 
-        ticket.Id = (int)dr["id"];
-        ticket.Name = (string)dr["name"];
+        ticket.Id = (int)dr["IdTicket"];
+        ticket.Name = (string)dr["Name"];
 
         return ticket;
     }
