@@ -1,4 +1,5 @@
-﻿@model SecureCoding.Model.TicketsViewModel
+﻿@using SecureCoding.Model;
+@model TicketViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -23,8 +24,4 @@
             @Html.DisplayFor(model => model.Name)
         </dd>
     </dl>
-</div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
 </div>
