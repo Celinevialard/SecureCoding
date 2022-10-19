@@ -1,4 +1,4 @@
-﻿namespace AirplaneSecure.Model;
+﻿namespace AirplaneNotSecure.Model;
 
 public class AuthViewModel
 {

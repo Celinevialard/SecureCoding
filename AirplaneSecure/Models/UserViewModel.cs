@@ -1,4 +1,4 @@
-﻿namespace SecureCoding.Model;
+﻿namespace AirplaneSecure.Model;
 
 public class UserViewModel
 {

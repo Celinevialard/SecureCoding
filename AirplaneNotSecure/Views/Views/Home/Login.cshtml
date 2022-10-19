@@ -1,17 +1,22 @@
-﻿@model AirplaneSecure.Model.UserPwdViewModel
+﻿@model AirplaneNotSecure.Model.AuthViewModel
 
 @{
-    ViewData["Title"] = "ChangePassword";
+    ViewData["Title"] = "Login";
 }
 
-<h1>ChangePassword</h1>
+<h1>Login</h1>
 
-<h4>UserPwdViewModel</h4>
+<h4>AuthViewModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="ChangePassword">
+        <form asp-action="Login">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
                 <input asp-for="Password" class="form-control" />
