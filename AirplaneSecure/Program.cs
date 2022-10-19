@@ -42,6 +42,16 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+// ajout d'un middleware
+app.Use(async (context, next) =>
+{
+    // ajout du Content-Security-Policy
+    context.Response.Headers.Add("Content-Security-Policy", "default-src 'self';");
+
+    // ajout du X-Frame-Options
+    context.Response.Headers.Add("X-Frame-Options", "SAMEORIGIN");
+    await next();
+});
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
