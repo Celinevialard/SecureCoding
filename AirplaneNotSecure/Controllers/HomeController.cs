@@ -1,4 +1,5 @@
-﻿using AirplaneNotSecure.Models;
+﻿using AirplaneNotSecure.Database;
+using AirplaneNotSecure.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,11 +7,11 @@ namespace AirplaneNotSecure.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        IUserDb UserDb { get; set; }
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IUserDb userDb)
         {
-            _logger = logger;
+            UserDb = userDb;
         }
 
         public IActionResult Index()
