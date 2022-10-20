@@ -18,7 +18,7 @@ public class UserDb : IUserDb
         {
             using (SqlConnection cn = new SqlConnection(ConnectionString))
             {
-                string query = @"SELECT * FROM User 
+                string query = @"SELECT * FROM [User] 
 							WHERE Login = @login";
                 SqlCommand cmd = new SqlCommand(query, cn);
                 cmd.Parameters.AddWithValue("@login", login);
@@ -48,7 +48,7 @@ public class UserDb : IUserDb
         {
             using (SqlConnection cn = new SqlConnection(ConnectionString))
             {
-                string query = @"SELECT * FROM User 
+                string query = @"SELECT * FROM [User] 
 							WHERE IdUser = @id";
                 SqlCommand cmd = new SqlCommand(query, cn);
                 cmd.Parameters.AddWithValue("@id", id);
@@ -77,11 +77,11 @@ public class UserDb : IUserDb
         {
             using (SqlConnection cn = new SqlConnection(ConnectionString))
             {
-                string query = @"UPDATE User
-                            SET Password = "+user.Password+@",
-                            FirstName = "+user.Firstname+@",
-                            Lastname = "+user.Lastname+@"
-							WHERE IdUser = "+user.Id+@"";
+                string query = @"UPDATE [User]
+                            SET [Password] = " + user.Password+@",
+                            [FirstName] = "+user.Firstname+@",
+                            [Lastname] = "+user.Lastname+@"
+							WHERE [IdUser] = "+user.Id+@"";
                 
                 SqlCommand cmd = new SqlCommand(query, cn);
 
