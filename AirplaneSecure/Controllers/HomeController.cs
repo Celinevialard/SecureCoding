@@ -36,7 +36,7 @@ public class HomeController : Controller
         {
             User user = UserDb.GetUser(login.UserName);
 
-            var salt = DateTime.Now.ToString();
+            var salt = user.Salt;
 
             var hashedPassword = UserDb.HashPassword($"{login.Password}{salt}");
 

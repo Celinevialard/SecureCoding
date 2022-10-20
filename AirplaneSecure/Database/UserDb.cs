@@ -114,6 +114,7 @@ public class UserDb : IUserDb
         user.Firstname = (string)dr["Firstname"];
         user.Login = (string)dr["Login"];
         user.Password = (string)dr["Password"];
+        user.Salt = (string)dr["Salt"];
 
         return user;
     }
