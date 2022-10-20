@@ -33,11 +33,8 @@ namespace AirplaneNotSecure.Controllers
             {
                 User user = UserDb.GetUser(login.UserName);
 
-                var salt = DateTime.Now.ToString();
 
-                var hashedPassword = UserDb.HashPassword($"{login.Password}{salt}");
-
-                if (hashedPassword == user.Password)
+                if (login.Password == user.Password)
                 {
                     HttpContext.Session.SetString("User", user.Id.ToString());
 
