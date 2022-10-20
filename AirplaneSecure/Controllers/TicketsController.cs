@@ -1,10 +1,10 @@
 ﻿using AirplaneSecure.Database;
 using Microsoft.AspNetCore.Mvc;
-using SecureCoding.Model;
+using AirplaneSecure.Model;
 using System.Diagnostics;
 using System.IO;
 
-namespace SecureCoding.Controler;
+namespace AirplaneSecure.Controler;
 
 public class TicketsController : Controller
 {
