@@ -80,7 +80,6 @@ public class UserDb : IUserDb
 
         try
         {
-            user.Password = HashPassword(user.Password);
 
             using (SqlConnection cn = new SqlConnection(connectionString))
             {

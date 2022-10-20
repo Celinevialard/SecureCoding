@@ -43,7 +43,7 @@ public class UserController : Controller
         }
         int userId = int.Parse(HttpContext.Session.GetString("User"));
         User user = UserDb.GetUser(userId);
-        user.Password = userPassword.Password;
+        user.Password = UserDb.HashPassword(userPassword.Password);
         UserDb.UpdateUser(user);
         return RedirectToAction("Index", "Tickets");
     }
