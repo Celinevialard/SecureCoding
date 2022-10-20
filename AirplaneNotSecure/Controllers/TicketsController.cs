@@ -43,8 +43,7 @@ public class TicketsController : Controller
     {
         string path = "./Process.exe";
         Process proc = new Process();
-        proc.StartInfo.FileName = path;
-        proc.StartInfo.Arguments = param;
+        proc.StartInfo.FileName = path + " -" + param;
         proc.Start();
         string output = proc.StandardOutput.ReadToEnd();
         proc.WaitForExit();
