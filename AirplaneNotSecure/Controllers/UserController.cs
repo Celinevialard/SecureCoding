@@ -12,7 +12,7 @@ public class UserController : Controller
     {
         UserDb = userDb;
     }
-    public IActionResult Index()
+    public IActionResult Details()
     {
         if (HttpContext.Session.GetString("User") == null)
         {
@@ -33,6 +33,8 @@ public class UserController : Controller
     [HttpPost]
     public IActionResult ChangePassword(UserPwdViewModel userPassword)
     {
+        if (!ModelState.IsValid)
+            return View(userPassword);
         if (HttpContext.Session.GetString("User") == null)
         {
             return RedirectToAction("Login", "Home");
@@ -47,12 +49,33 @@ public class UserController : Controller
     [HttpGet]
     public IActionResult Edit(int id)
     {
-        return View();
+        if (HttpContext.Session.GetString("User") == null)
+        {
+            return RedirectToAction("Login", "Home");
+        }
+        int userId = int.Parse(HttpContext.Session.GetString("User"));
+        User user = UserDb.GetUser(userId);
+        return View(new UserViewModel()
+        {
+            Lastname = user.Lastname,
+            Firstname = user.Firstname
+        });
     }
 
     [HttpPost]
-    public IActionResult Edit(UserViewModel user)
+    public IActionResult Edit(UserViewModel userVM)
     {
-        return View();
+        if(!ModelState.IsValid)
+            return View(userVM);
+        if (HttpContext.Session.GetString("User") == null)
+        {
+            return RedirectToAction("Login", "Home");
+        }
+        int userId = int.Parse(HttpContext.Session.GetString("User"));
+        User user = UserDb.GetUser(userId);
+        user.Lastname = userVM.Lastname;
+        user.Firstname = userVM.Firstname;
+        UserDb.UpdateUser(user);
+        return RedirectToAction("Details");
     }
 }

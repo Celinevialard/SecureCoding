@@ -12,7 +12,7 @@ public class UserController : Controller
     {
         UserDb = userDb;
     }
-    public IActionResult Index()
+    public IActionResult Details()
     {
         if (HttpContext.Session.GetString("User") == null)
         {
@@ -55,16 +55,29 @@ public class UserController : Controller
         {
             return RedirectToAction("Login", "Home");
         }
-        return View();
+        int userId = int.Parse(HttpContext.Session.GetString("User"));
+        User user = UserDb.GetUser(userId);
+        return View(new UserViewModel()
+        {
+            Lastname = user.Lastname,
+            Firstname = user.Firstname
+        });
     }
 
     [HttpPost]
-    public IActionResult Edit(UserViewModel user)
+    public IActionResult Edit(UserViewModel userVM)
     {
+        if (!ModelState.IsValid)
+            return View(userVM);
         if (HttpContext.Session.GetString("User") == null)
         {
             return RedirectToAction("Login", "Home");
         }
-        return View();
+        int userId = int.Parse(HttpContext.Session.GetString("User"));
+        User user = UserDb.GetUser(userId);
+        user.Lastname = userVM.Lastname;
+        user.Firstname = userVM.Firstname;
+        UserDb.UpdateUser(user);
+        return RedirectToAction("Details");
     }
 }
