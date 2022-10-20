@@ -4,20 +4,19 @@ namespace AirplaneNotSecure.Database;
 
 public class UserDb : IUserDb
 {
-    private IConfiguration Configuration { get; }
-    public UserDb(IConfiguration configuration)
+    private string ConnectionString { get; }
+    public UserDb()
     {
-        Configuration = configuration;
+        ConnectionString = "Data Source=153.109.124.35;Initial Catalog=SecureCodingJulienneCelineTheo;User ID=6231db;Password=Pwd46231.";
     }
 
     public User GetUser(string login)
     {
         User results = null;
-        string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
         try
         {
-            using (SqlConnection cn = new SqlConnection(connectionString))
+            using (SqlConnection cn = new SqlConnection(ConnectionString))
             {
                 string query = @"SELECT * FROM User 
 							WHERE Login = @login";
@@ -44,11 +43,10 @@ public class UserDb : IUserDb
     public User GetUser(int id)
     {
         User results = null;
-        string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
         try
         {
-            using (SqlConnection cn = new SqlConnection(connectionString))
+            using (SqlConnection cn = new SqlConnection(ConnectionString))
             {
                 string query = @"SELECT * FROM User 
 							WHERE IdUser = @id";
@@ -74,11 +72,10 @@ public class UserDb : IUserDb
 
     public bool UpdateUser(User user)
     {
-        string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
         try
         {
-            using (SqlConnection cn = new SqlConnection(connectionString))
+            using (SqlConnection cn = new SqlConnection(ConnectionString))
             {
                 string query = @"UPDATE User
                             SET Password = "+user.Password+@",

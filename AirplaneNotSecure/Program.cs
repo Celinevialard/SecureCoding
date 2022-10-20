@@ -1,4 +1,9 @@
+using AirplaneNotSecure.Database;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddScoped<ITicketDb, TicketDb>();
+builder.Services.AddScoped<IUserDb, UserDb>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

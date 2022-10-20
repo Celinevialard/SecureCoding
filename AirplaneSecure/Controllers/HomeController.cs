@@ -16,9 +16,9 @@ public class HomeController : Controller
         UserDb = userDb;
     }
     
-    public IActionResult Home()
+    public IActionResult Index()
     {
-        return RedirectToAction("Index", "Tickets");
+        return RedirectToAction("Login");
     }
 
     [HttpGet]

@@ -1,4 +1,5 @@
-﻿using AirplaneNotSecure.Models;
+﻿using AirplaneNotSecure.Database;
+using AirplaneNotSecure.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,27 +7,44 @@ namespace AirplaneNotSecure.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        IUserDb UserDb { get; set; }
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IUserDb userDb)
         {
-            _logger = logger;
+            UserDb = userDb;
         }
 
         public IActionResult Index()
         {
+            return RedirectToAction("Login");
+        }
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            // afficher formulaire
             return View();
         }
 
-        public IActionResult Privacy()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Login(AuthViewModel login)
         {
-            return View();
-        }
+            if (ModelState.IsValid)
+            {
+                User user = UserDb.GetUser(login.UserName);
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+
+                if (login.Password == user.Password)
+                {
+                    HttpContext.Session.SetString("User", user.Id.ToString());
+
+                    return RedirectToAction("Index", "Tickets");
+                }
+
+                ModelState.AddModelError(string.Empty, "Invalid user or password");
+            }
+            return View(login);
         }
     }
 }

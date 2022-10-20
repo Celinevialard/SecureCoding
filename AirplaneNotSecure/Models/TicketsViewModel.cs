@@ -1,6 +1,6 @@
 ﻿using AirplaneNotSecure.Database;
 
-namespace AirplaneNotSecure.Model;
+namespace AirplaneNotSecure.Models;
 
 public class TicketListViewModel
 {
