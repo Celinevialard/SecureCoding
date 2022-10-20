@@ -5,5 +5,6 @@
         User GetUser(int id);
         User GetUser(string login);
         bool UpdateUser(User user);
+        string HashPassword(string password);
     }
 }

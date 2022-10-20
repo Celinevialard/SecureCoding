@@ -1,4 +1,5 @@
 ﻿using AirplaneSecure.Database;
+using AirplaneSecure.Model;
 using Microsoft.AspNetCore.Mvc;
 using SecureCoding.Model;
 

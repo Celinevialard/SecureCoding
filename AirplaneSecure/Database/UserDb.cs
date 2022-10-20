@@ -1,4 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace AirplaneSecure.Database;
 
@@ -78,6 +80,8 @@ public class UserDb : IUserDb
 
         try
         {
+            user.Password = HashPassword(user.Password);
+
             using (SqlConnection cn = new SqlConnection(connectionString))
             {
                 string query = @"UPDATE User
@@ -112,5 +116,13 @@ public class UserDb : IUserDb
         user.Password = (string)dr["Password"];
 
         return user;
+    }
+    public string HashPassword(string password)
+    {
+        SHA256 hash = SHA256.Create();
+        var pwdBytes = Encoding.Default.GetBytes(password);
+        var pwdHashed = hash.ComputeHash(pwdBytes);
+
+        return Convert.ToBase64String(pwdHashed);
     }
 }

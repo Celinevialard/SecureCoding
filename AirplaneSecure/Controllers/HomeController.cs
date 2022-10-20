@@ -1,9 +1,13 @@
 ﻿using AirplaneSecure.Database;
+using AirplaneSecure.Model;
 using Microsoft.AspNetCore.Mvc;
 using SecureCoding.Model;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace SecureCoding.Controler;
 
+[RequireHttps]
 public class HomeController : Controller
 {
     IUserDb UserDb { get; set; }
@@ -26,13 +30,27 @@ public class HomeController : Controller
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public IActionResult Login(AuthViewModel login)
     {
-        // une fois le formulaire submit enregistrer dans la session le userID
-        User user = UserDb.GetUser(login.UserName);
-        //  controler mot de passe si ok passer en dessous
-        HttpContext.Session.SetString("User", user.Id.ToString());
+        if (ModelState.IsValid)
+        {
+            User user = UserDb.GetUser(login.UserName);
 
-        return RedirectToAction("Index", "Tickets");
+            var salt = DateTime.Now.ToString();
+
+            var hashedPassword = UserDb.HashPassword($"{login.Password}{salt}");
+
+            if (hashedPassword == user.Password)
+            {
+                HttpContext.Session.SetString("User", user.Id.ToString());
+
+                return RedirectToAction("Index", "Tickets");
+            }
+
+            ModelState.AddModelError(string.Empty, "Invalid user or password");
+        }
+        return View(login);
     }
+
 }
