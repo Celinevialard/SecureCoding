@@ -41,7 +41,7 @@ public class TicketsController : Controller
 
     public IActionResult Action(string param)
     {
-        string path = "./Process.exe";
+        string path = "./Process.jar";
         Process proc = new Process();
         proc.StartInfo.FileName = path + " -" + param;
         proc.Start();
