@@ -4,20 +4,19 @@ namespace AirplaneNotSecure.Database;
 
 public class TicketDb : ITicketDb
 {
-    private IConfiguration Configuration { get; }
-    public TicketDb(IConfiguration configuration)
+    private string ConnectionString { get; }
+    public TicketDb()
     {
-        Configuration = configuration;
+        ConnectionString = "Data Source=153.109.124.35;Initial Catalog=SecureCodingJulienneCelineTheo;User ID=6231db;Password=Pwd46231.";
     }
 
     public List<Ticket> GetTickets(int userId)
     {
         List<Ticket> results = null;
-        string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
         try
         {
-            using (SqlConnection cn = new SqlConnection(connectionString))
+            using (SqlConnection cn = new SqlConnection(ConnectionString))
             {
                 string query = @"SELECT * FROM Ticket 
 							WHERE IdUser = @userId";
@@ -48,11 +47,10 @@ public class TicketDb : ITicketDb
     public Ticket GetTicket(int id)
     {
         Ticket result = null;
-        string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
         try
         {
-            using (SqlConnection cn = new SqlConnection(connectionString))
+            using (SqlConnection cn = new SqlConnection(ConnectionString))
             {
                 string query = @"SELECT * FROM Ticket 
 							WHERE IdTicket = @id";
