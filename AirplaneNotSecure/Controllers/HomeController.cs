@@ -15,18 +15,38 @@ namespace AirplaneNotSecure.Controllers
 
         public IActionResult Index()
         {
+            return RedirectToAction("Login");
+        }
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            // afficher formulaire
             return View();
         }
 
-        public IActionResult Privacy()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Login(AuthViewModel login)
         {
-            return View();
-        }
+            if (ModelState.IsValid)
+            {
+                User user = UserDb.GetUser(login.UserName);
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+                var salt = DateTime.Now.ToString();
+
+                var hashedPassword = UserDb.HashPassword($"{login.Password}{salt}");
+
+                if (hashedPassword == user.Password)
+                {
+                    HttpContext.Session.SetString("User", user.Id.ToString());
+
+                    return RedirectToAction("Index", "Tickets");
+                }
+
+                ModelState.AddModelError(string.Empty, "Invalid user or password");
+            }
+            return View(login);
         }
     }
 }
