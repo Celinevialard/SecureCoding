@@ -1,6 +1,6 @@
 ﻿using AirplaneNotSecure.Database;
 using Microsoft.AspNetCore.Mvc;
-using AirplaneNotSecure.Model;
+using AirplaneNotSecure.Models;
 using System.Diagnostics;
 using System.IO;
 
