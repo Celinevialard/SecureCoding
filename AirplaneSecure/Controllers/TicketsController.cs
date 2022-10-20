@@ -1,6 +1,6 @@
 ﻿using AirplaneSecure.Database;
 using Microsoft.AspNetCore.Mvc;
-using AirplaneSecure.Model;
+using AirplaneSecure.Models;
 using System.Diagnostics;
 using System.IO;
 
@@ -43,17 +43,37 @@ public class TicketsController : Controller
         }); 
     }
 
-    public IActionResult Action(string param)
+    [HttpPost]
+    public IActionResult Action(string info)
     {
-        string path = "./Process.jar";
+        if (HttpContext.Session.GetString("User") == null)
+        {
+            return RedirectToAction("Login", "Home");
+        }
+        int userId = int.Parse(HttpContext.Session.GetString("User"));
+        List<Ticket> tickets = TicketDb.GetTickets(userId);
+
+        if(!tickets.Any(t=>t.Name == info))
+            return RedirectToAction("Index", "Tickets");
+
+        string path = "Process\\Process.exe";
         Process proc = new Process();
-        proc.StartInfo.FileName = path;
-        proc.StartInfo.Arguments = param;
+        proc.StartInfo.UseShellExecute = false;
+        proc.StartInfo.RedirectStandardOutput = true;
+        proc.StartInfo.CreateNoWindow = true;
+        proc.StartInfo.FileName = "cmd.exe";
+        proc.StartInfo.Arguments = "/C" + path + " -" + info;
         proc.Start();
-        string output = proc.StandardOutput.ReadToEnd();
-        proc.WaitForExit();
+        string output = proc.StandardOutput.ReadLine();
+        while (!proc.StandardOutput.EndOfStream)
+        {
+            output += proc.StandardOutput.ReadLine();
+        }
         var stat = proc.ExitCode;
-        return View(output);
+        return View(new StringViewModel()
+        {
+            Info = output
+        });
     }
 
 }

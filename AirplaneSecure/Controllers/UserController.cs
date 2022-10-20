@@ -1,5 +1,5 @@
 ﻿using AirplaneSecure.Database;
-using AirplaneSecure.Model;
+using AirplaneSecure.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AirplaneSecure.Controler;

@@ -1,4 +1,4 @@
-﻿@using AirplaneSecure.Model
+﻿@using AirplaneSecure.Models
 @model TicketListViewModel
 
 @{
@@ -31,7 +31,12 @@
             </td>
             <td>
                  @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-                 @Html.ActionLink("Action", "Aciton", new { param=item.Name })
+                        <form asp-action="Action">
+                            <input type="hidden" name="info" value="@item.Name" />
+                            <div class="form-group">
+                                <input type="submit" value="Action" class="btn btn-primary" />
+                            </div>
+                        </form>
             </td>
         </tr>
 }
