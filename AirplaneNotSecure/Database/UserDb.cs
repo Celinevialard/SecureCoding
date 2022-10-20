@@ -7,7 +7,7 @@ public class UserDb : IUserDb
     private string ConnectionString { get; }
     public UserDb()
     {
-        ConnectionString = "Data Source=153.109.124.35;Initial Catalog=SecureCodingJulienneCelineTheo;User ID=6231db;Password=Pwd46231.";
+        ConnectionString = "Data Source=153.109.124.35;Initial Catalog=SecureCodingJulienneCelineTheo;Encrypt=false;User ID=6231db;Password=Pwd46231.";
     }
 
     public User GetUser(string login)
