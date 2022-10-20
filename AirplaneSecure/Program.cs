@@ -7,9 +7,6 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<ITicketDb, TicketDb>();
 
-
-var app = builder.Build();
-
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromSeconds(10);
@@ -30,6 +27,8 @@ builder.Services.AddCors(options =>
                           policy.AllowCredentials();
                       });
 });
+var app = builder.Build();
+
 app.UseCors("MyCORStest");
 
 // Configure the HTTP request pipeline.
