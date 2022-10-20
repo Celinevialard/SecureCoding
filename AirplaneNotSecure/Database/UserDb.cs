@@ -81,15 +81,13 @@ public class UserDb : IUserDb
             using (SqlConnection cn = new SqlConnection(connectionString))
             {
                 string query = @"UPDATE User
-                            SET Password = @password,
-                            FirstName = @firstname,
-                            Lastname = @lastname
-							WHERE IdUser = @id";
+                            SET Password = "+user.Password+@",
+                            FirstName = "+user.Firstname+@",
+                            Lastname = "+user.Lastname+@"
+							WHERE IdUser = "+user.Id+@"";
+                
                 SqlCommand cmd = new SqlCommand(query, cn);
-                cmd.Parameters.AddWithValue("@id", user.Id);
-                cmd.Parameters.AddWithValue("@password", user.Password);
-                cmd.Parameters.AddWithValue("@firstname", user.Firstname);
-                cmd.Parameters.AddWithValue("@lastname", user.Lastname);
+
                 cn.Open();
 
                 return cmd.ExecuteNonQuery() > 0;
