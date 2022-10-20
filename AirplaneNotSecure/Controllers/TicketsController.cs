@@ -39,16 +39,27 @@ public class TicketsController : Controller
         }); 
     }
 
-    public IActionResult Action(string param)
+    [HttpPost]
+    public IActionResult Action(string info)
     {
-        string path = "./Process.jar";
+        string path = "Process\\Process.exe";
         Process proc = new Process();
-        proc.StartInfo.FileName = path + " -" + param;
+        proc.StartInfo.UseShellExecute = false;
+        proc.StartInfo.RedirectStandardOutput = true;
+        proc.StartInfo.CreateNoWindow = true;
+        proc.StartInfo.FileName = "cmd.exe";
+        proc.StartInfo.Arguments = "/C"+path +" -"+ info;
         proc.Start();
-        string output = proc.StandardOutput.ReadToEnd();
-        proc.WaitForExit();
+        string output = proc.StandardOutput.ReadLine();
+        while (!proc.StandardOutput.EndOfStream)
+        {
+            output += proc.StandardOutput.ReadLine();
+        }
         var stat = proc.ExitCode;
-        return View(output);
+        return View(new StringViewModel()
+        {
+            Info = output
+        });
     }
 
 }
