@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace SecureCoding.Controler;
+namespace AirplaneSecure.Controler;
 
 [RequireHttps]
 public class HomeController : Controller

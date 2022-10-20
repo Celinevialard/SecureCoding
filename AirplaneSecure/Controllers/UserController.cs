@@ -1,9 +1,9 @@
 ﻿using AirplaneSecure.Database;
 using AirplaneSecure.Model;
 using Microsoft.AspNetCore.Mvc;
-using SecureCoding.Model;
+using AirplaneSecure.Model;
 
-namespace SecureCoding.Controler;
+namespace AirplaneSecure.Controler;
 
 public class UserController : Controller
 {
