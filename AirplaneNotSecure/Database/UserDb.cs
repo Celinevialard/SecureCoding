@@ -78,10 +78,10 @@ public class UserDb : IUserDb
             using (SqlConnection cn = new SqlConnection(ConnectionString))
             {
                 string query = @"UPDATE [User]
-                            SET [Password] = " + user.Password+@",
-                            [FirstName] = "+user.Firstname+@",
-                            [Lastname] = "+user.Lastname+@"
-							WHERE [IdUser] = "+user.Id+@"";
+                            SET Password = '" + user.Password+@"',
+                            FirstName = '"+user.Firstname+@"',
+                            Lastname = '"+user.Lastname+@"'
+							WHERE IdUser = "+user.Id+@"";
                 
                 SqlCommand cmd = new SqlCommand(query, cn);
 
