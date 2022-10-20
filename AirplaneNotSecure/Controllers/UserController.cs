@@ -12,6 +12,17 @@ public class UserController : Controller
     {
         UserDb = userDb;
     }
+    public IActionResult Index()
+    {
+        if (HttpContext.Session.GetString("User") == null)
+        {
+            return RedirectToAction("Login", "Home");
+        }
+        int userId = int.Parse(HttpContext.Session.GetString("User"));
+        User user = UserDb.GetUser(userId);
+
+        return View(new UserViewModel() { Firstname = user.Firstname, Lastname = user.Lastname }) ;
+    }
 
     [HttpGet]
     public IActionResult ChangePassword()
