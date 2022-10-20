@@ -10,9 +10,6 @@ builder.Services.AddScoped<IUserDb, UserDb>();
 
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromSeconds(10);
-    options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true;
     options.Cookie.SameSite = SameSiteMode.Strict;
 });
 // add CORS
