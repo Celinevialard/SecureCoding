@@ -27,6 +27,10 @@ public class UserController : Controller
     [HttpGet]
     public IActionResult ChangePassword()
     {
+        if (HttpContext.Session.GetString("User") == null)
+        {
+            return RedirectToAction("Login", "Home");
+        }
         return View();
     }
 
@@ -47,12 +51,20 @@ public class UserController : Controller
     [HttpGet]
     public IActionResult Edit(int id)
     {
+        if (HttpContext.Session.GetString("User") == null)
+        {
+            return RedirectToAction("Login", "Home");
+        }
         return View();
     }
 
     [HttpPost]
     public IActionResult Edit(UserViewModel user)
     {
+        if (HttpContext.Session.GetString("User") == null)
+        {
+            return RedirectToAction("Login", "Home");
+        }
         return View();
     }
 }
