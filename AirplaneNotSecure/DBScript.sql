@@ -1,15 +1,15 @@
 CREATE TABLE [User] (
     [IdUser] INT IDENTITY (1, 1) NOT NULL,
-    [Lastname]	NVARCHAR(20) 	NOT NULL,
-    [Firstname] NVARCHAR (20) 	NOT NULL,
-    [Login] 	NVARCHAR (20) 	NOT NULL,
-    [Password] 	NVARCHAR (30) 	NOT NULL,
+    [Lastname]	NVARCHAR(MAX) 	NOT NULL,
+    [Firstname] NVARCHAR (MAX) 	NOT NULL,
+    [Login] 	NVARCHAR (MAX) 	NOT NULL,
+    [Password] 	NVARCHAR (MAX) 	NOT NULL,
     PRIMARY KEY CLUSTERED ([IdUser] ASC),
 );
 
 CREATE TABLE [Ticket] (
     [IdTicket]	INT	IDENTITY (1, 1) 	NOT NULL,
-    [Name]  	NVARCHAR(20) 			NOT NULL,
+    [Name]  	NVARCHAR(MAX) 			NOT NULL,
     [IdUser]	INT				NULL,
     PRIMARY KEY CLUSTERED ([IdTicket] ASC),
     FOREIGN KEY ([IdUser]) REFERENCES [User] ([IdUser])

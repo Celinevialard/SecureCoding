@@ -27,6 +27,10 @@ public class UserController : Controller
     [HttpGet]
     public IActionResult ChangePassword()
     {
+        if (HttpContext.Session.GetString("User") == null)
+        {
+            return RedirectToAction("Login", "Home");
+        }
         return View();
     }
 

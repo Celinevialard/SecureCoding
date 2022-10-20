@@ -30,6 +30,10 @@ public class TicketsController : Controller
 
     public IActionResult Details(int id, string url )
     {
+        if (HttpContext.Session.GetString("User") == null)
+        {
+            return RedirectToAction("Login", "Home");
+        }
         Ticket ticket = TicketDb.GetTicket(id);
 
         return View(new TicketViewModel()
