@@ -52,4 +52,10 @@ public class HomeController : Controller
         return View(login);
     }
 
+    public IActionResult Logout(AuthViewModel login)
+    {
+        HttpContext.Session.Clear();
+        return RedirectToAction("Login", "Home");
+
+    }
 }
