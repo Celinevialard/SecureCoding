@@ -46,5 +46,12 @@ namespace AirplaneNotSecure.Controllers
             }
             return View(login);
         }
+
+        public IActionResult Logout(AuthViewModel login)
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login", "Home");
+
+        }
     }
 }
