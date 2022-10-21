@@ -7,19 +7,21 @@ namespace AirplaneSecure.Database;
 public class UserDb : IUserDb
 {
     private IConfiguration Configuration { get; }
+    private string ConnectionString { get; }
+
     public UserDb(IConfiguration configuration)
     {
         Configuration = configuration;
+        ConnectionString = Configuration.GetConnectionString("DefaultConnection");
     }
 
     public User GetUser(string login)
     {
         User results = null;
-        string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
         try
         {
-            using (SqlConnection cn = new SqlConnection(connectionString))
+            using (SqlConnection cn = new SqlConnection(ConnectionString))
             {
                 string query = @"SELECT * FROM [User] 
 							WHERE Login = @login";
@@ -46,11 +48,9 @@ public class UserDb : IUserDb
     public User GetUser(int id)
     {
         User results = null;
-        string connectionString = Configuration.GetConnectionString("DefaultConnection");
-
         try
         {
-            using (SqlConnection cn = new SqlConnection(connectionString))
+            using (SqlConnection cn = new SqlConnection(ConnectionString))
             {
                 string query = @"SELECT * FROM [User] 
 							WHERE IdUser = @id";
@@ -76,12 +76,10 @@ public class UserDb : IUserDb
 
     public bool UpdateUser(User user)
     {
-        string connectionString = Configuration.GetConnectionString("DefaultConnection");
-
         try
         {
 
-            using (SqlConnection cn = new SqlConnection(connectionString))
+            using (SqlConnection cn = new SqlConnection(ConnectionString))
             {
                 string query = @"UPDATE [User]
                             SET Password = @password,

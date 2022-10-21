@@ -1,5 +1,6 @@
 ﻿using AirplaneNotSecure.Database;
 using AirplaneNotSecure.Models;
+using AirplaneNotSecure.Utils;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AirplaneSecure.Controler;
@@ -14,11 +15,12 @@ public class UserController : Controller
     }
     public IActionResult Details()
     {
-        if (HttpContext.Session.GetString("User") == null)
+        int userId = HttpContext.Session.GetUserId();
+
+        if (userId == 0)
         {
             return RedirectToAction("Login", "Home");
         }
-        int userId = int.Parse(HttpContext.Session.GetString("User"));
         User user = UserDb.GetUser(userId);
 
         return View(new UserViewModel() { Firstname = user.Firstname, Lastname = user.Lastname }) ;
@@ -35,11 +37,13 @@ public class UserController : Controller
     {
         if (!ModelState.IsValid)
             return View(userPassword);
-        if (HttpContext.Session.GetString("User") == null)
+
+        int userId = HttpContext.Session.GetUserId();
+
+        if (userId == 0)
         {
             return RedirectToAction("Login", "Home");
         }
-        int userId = int.Parse(HttpContext.Session.GetString("User"));
         User user = UserDb.GetUser(userId);
         user.Password = userPassword.Password;
         UserDb.UpdateUser(user);
@@ -49,11 +53,12 @@ public class UserController : Controller
     [HttpGet]
     public IActionResult Edit(int id)
     {
-        if (HttpContext.Session.GetString("User") == null)
+        int userId = HttpContext.Session.GetUserId();
+
+        if (userId == 0)
         {
             return RedirectToAction("Login", "Home");
         }
-        int userId = int.Parse(HttpContext.Session.GetString("User"));
         User user = UserDb.GetUser(userId);
         return View(new UserViewModel()
         {
@@ -67,11 +72,13 @@ public class UserController : Controller
     {
         if(!ModelState.IsValid)
             return View(userVM);
-        if (HttpContext.Session.GetString("User") == null)
+
+        int userId = HttpContext.Session.GetUserId();
+
+        if (userId == 0)
         {
             return RedirectToAction("Login", "Home");
         }
-        int userId = int.Parse(HttpContext.Session.GetString("User"));
         User user = UserDb.GetUser(userId);
         user.Lastname = userVM.Lastname;
         user.Firstname = userVM.Firstname;

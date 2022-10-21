@@ -18,7 +18,7 @@ public class TicketDb : ITicketDb
         {
             using (SqlConnection cn = new SqlConnection(ConnectionString))
             {
-                string query = @"SELECT * FROM Ticket 
+                string query = @"SELECT * FROM [Ticket] 
 							WHERE IdUser = @userId";
                 SqlCommand cmd = new SqlCommand(query, cn);
                 cmd.Parameters.AddWithValue("@userId", userId);
@@ -52,7 +52,7 @@ public class TicketDb : ITicketDb
         {
             using (SqlConnection cn = new SqlConnection(ConnectionString))
             {
-                string query = @"SELECT * FROM Ticket 
+                string query = @"SELECT * FROM [Ticket] 
 							WHERE IdTicket = @id";
                 SqlCommand cmd = new SqlCommand(query, cn);
                 cmd.Parameters.AddWithValue("@id", id);

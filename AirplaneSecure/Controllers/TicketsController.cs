@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using AirplaneSecure.Models;
 using System.Diagnostics;
 using System.IO;
+using AirplaneSecure.Utils;
 
 namespace AirplaneSecure.Controler;
 
@@ -16,11 +17,11 @@ public class TicketsController : Controller
     }
     public IActionResult Index()
     {
-        if (HttpContext.Session.GetString("User") == null)
-        {
+        int userId = HttpContext.Session.GetUserId();
+
+        if (userId == 0)
             return RedirectToAction("Login", "Home");
-        }
-        int userId = int.Parse(HttpContext.Session.GetString("User"));
+
         List<Ticket> tickets = TicketDb.GetTickets(userId);
         
         return View(new TicketListViewModel { 
@@ -30,10 +31,11 @@ public class TicketsController : Controller
 
     public IActionResult Details(int id, string url )
     {
-        if (HttpContext.Session.GetString("User") == null)
-        {
+        int userId = HttpContext.Session.GetUserId();
+
+        if (userId == 0)
             return RedirectToAction("Login", "Home");
-        }
+
         Ticket ticket = TicketDb.GetTicket(id);
 
         return View(new TicketViewModel()
@@ -46,11 +48,11 @@ public class TicketsController : Controller
     [HttpPost]
     public IActionResult Action(string info)
     {
-        if (HttpContext.Session.GetString("User") == null)
-        {
+        int userId = HttpContext.Session.GetUserId();
+
+        if (userId == 0)
             return RedirectToAction("Login", "Home");
-        }
-        int userId = int.Parse(HttpContext.Session.GetString("User"));
+
         List<Ticket> tickets = TicketDb.GetTickets(userId);
 
         if(!tickets.Any(t=>t.Name == info))

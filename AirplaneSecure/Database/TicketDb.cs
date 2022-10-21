@@ -5,21 +5,22 @@ namespace AirplaneSecure.Database;
 public class TicketDb : ITicketDb
 {
     private IConfiguration Configuration { get; }
+    private string ConnectionString { get; }
+
     public TicketDb(IConfiguration configuration)
     {
         Configuration = configuration;
+        ConnectionString = Configuration.GetConnectionString("DefaultConnection");
     }
 
     public List<Ticket> GetTickets(int userId)
     {
         List<Ticket> results = null;
-        string connectionString = Configuration.GetConnectionString("DefaultConnection");
-
         try
         {
-            using (SqlConnection cn = new SqlConnection(connectionString))
+            using (SqlConnection cn = new SqlConnection(ConnectionString))
             {
-                string query = @"SELECT * FROM Ticket 
+                string query = @"SELECT * FROM [Ticket] 
 							WHERE IdUser = @userId";
                 SqlCommand cmd = new SqlCommand(query, cn);
                 cmd.Parameters.AddWithValue("@userId", userId);
@@ -48,13 +49,12 @@ public class TicketDb : ITicketDb
     public Ticket GetTicket(int id)
     {
         Ticket result = null;
-        string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
         try
         {
-            using (SqlConnection cn = new SqlConnection(connectionString))
+            using (SqlConnection cn = new SqlConnection(ConnectionString))
             {
-                string query = @"SELECT * FROM Ticket 
+                string query = @"SELECT * FROM [Ticket] 
 							WHERE IdTicket = @id";
                 SqlCommand cmd = new SqlCommand(query, cn);
                 cmd.Parameters.AddWithValue("@id", id);

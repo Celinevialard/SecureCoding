@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using AirplaneNotSecure.Models;
 using System.Diagnostics;
 using System.IO;
+using AirplaneNotSecure.Utils;
 
 namespace AirplaneNotSecure.Controler;
 
@@ -16,11 +17,13 @@ public class TicketsController : Controller
     }
     public IActionResult Index()
     {
-        if (HttpContext.Session.GetString("User") == null)
+        int userId = HttpContext.Session.GetUserId();
+
+        if (userId ==0 )
         {
             return RedirectToAction("Login", "Home");
         }
-        int userId = int.Parse(HttpContext.Session.GetString("User"));
+
         List<Ticket> tickets = TicketDb.GetTickets(userId);
         
         return View(new TicketListViewModel { 
