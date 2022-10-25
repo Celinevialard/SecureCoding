@@ -37,6 +37,7 @@ public class UserController : Controller
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public IActionResult ChangePassword(UserPwdViewModel userPassword)
     {
         int userId = HttpContext.Session.GetUserId();
@@ -67,6 +68,7 @@ public class UserController : Controller
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public IActionResult Edit(UserViewModel userVM)
     {
         if (!ModelState.IsValid)
