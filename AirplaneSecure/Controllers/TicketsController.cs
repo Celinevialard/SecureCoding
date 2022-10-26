@@ -7,6 +7,7 @@ using AirplaneSecure.Utils;
 
 namespace AirplaneSecure.Controler;
 
+//[RequireHttps]
 public class TicketsController : Controller
 {
     ITicketDb TicketDb { get; set; }

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace AirplaneSecure.Controler;
 
-[RequireHttps]
+//[RequireHttps]
 public class HomeController : Controller
 {
     IUserDb UserDb { get; set; }

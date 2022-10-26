@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AirplaneSecure.Controler;
 
+//[RequireHttps]
 public class UserController : Controller
 {
     IUserDb UserDb { get; set; }

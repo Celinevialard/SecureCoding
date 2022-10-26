@@ -18,7 +18,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: "MyCORStest",
                       policy =>
                       {
-                          policy.WithOrigins("153.109.124.35",
+                          policy.WithOrigins("153.109.124.35:81",
                                               "http://www.airline.com");
                           policy.WithMethods("POST", "OPTION", "GET");
                           policy.WithHeaders("My-Favorite-Airline");
@@ -36,7 +36,7 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     // ajout du Http Strict-Transport-Security
     // par defaut ajouter si on coche à la création
-    app.UseHsts();
+    //app.UseHsts();
 }
 
 // ajout d'un middleware
@@ -50,7 +50,7 @@ app.Use(async (context, next) =>
     await next();
 });
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
