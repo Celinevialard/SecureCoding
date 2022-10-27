@@ -46,7 +46,7 @@ public class TicketDb : ITicketDb
         return results;
     }
 
-    public Ticket GetTicket(int id)
+    public Ticket GetTicket(int id, int userId)
     {
         Ticket result = null;
 
@@ -55,9 +55,10 @@ public class TicketDb : ITicketDb
             using (SqlConnection cn = new SqlConnection(ConnectionString))
             {
                 string query = @"SELECT * FROM [Ticket] 
-							WHERE IdTicket = @id";
+							WHERE IdTicket = @id AND IdUser = @userId";
                 SqlCommand cmd = new SqlCommand(query, cn);
                 cmd.Parameters.AddWithValue("@id", id);
+                cmd.Parameters.AddWithValue("@userId", userId);
                 cn.Open();
 
                 using (SqlDataReader dr = cmd.ExecuteReader())

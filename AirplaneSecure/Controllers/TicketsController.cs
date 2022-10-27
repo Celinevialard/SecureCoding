@@ -37,8 +37,8 @@ public class TicketsController : Controller
         if (userId == 0)
             return RedirectToAction("Login", "Home");
 
-        Ticket ticket = TicketDb.GetTicket(id);
-
+        Ticket ticket = TicketDb.GetTicket(id, userId);
+        
         return View(new TicketViewModel()
         {
             Id = id,
