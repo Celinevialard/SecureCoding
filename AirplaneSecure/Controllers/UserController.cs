@@ -47,7 +47,7 @@ public class UserController : Controller
             return RedirectToAction("Login", "Home");
 
         User user = UserDb.GetUser(userId);
-        user.Password = UserDb.HashPassword(userPassword.Password);
+        user.Password = UserDb.HashPassword($"{userPassword.Password}{user.Salt}");
         UserDb.UpdateUser(user);
         return RedirectToAction("Index", "Tickets");
     }
